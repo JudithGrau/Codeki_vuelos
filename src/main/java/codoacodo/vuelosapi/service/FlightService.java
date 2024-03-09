@@ -1,0 +1,36 @@
+package codoacodo.vuelosapi.service;
+
+import codoacodo.vuelosapi.model.Flight;
+import codoacodo.vuelosapi.repository.VuelosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class FlightService {
+
+    @Autowired
+    VuelosRepository vuelosRepository;
+
+    public List<Flight> traerTodosLosVuelos(){
+        return vuelosRepository.findAll();
+    }
+
+    public void crearVuelo(Flight flight){
+        vuelosRepository.save(flight);
+    }
+    public Flight buscarVueloPorId(Long id) {
+        return vuelosRepository.findById(id).orElse(null);
+    }
+
+    public void borrarVueloPorId(Long id) {
+        vuelosRepository.deleteById(id);
+    }
+
+    public Flight actualizarVuelo(Flight flight){
+        vuelosRepository.save(flight);
+        return vuelosRepository.findById(flight.getId()).orElse(null);
+    }
+}
