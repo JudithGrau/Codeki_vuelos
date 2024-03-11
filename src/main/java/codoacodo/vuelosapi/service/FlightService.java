@@ -5,6 +5,7 @@ import codoacodo.vuelosapi.repository.VuelosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +33,18 @@ public class FlightService {
     public Flight actualizarVuelo(Flight flight){
         vuelosRepository.save(flight);
         return vuelosRepository.findById(flight.getId()).orElse(null);
+    }
+
+    public List<Flight> getOffers(Integer offerPrice){
+
+        List<Flight> flights = vuelosRepository.findAll();
+        List<Flight> offerFlights = new ArrayList<>();
+
+        for(Flight flight : flights){
+            if(flight.getPrecio() < offerPrice) {
+                offerFlights.add(flight);
+            }
+        }
+        return offerFlights;
     }
 }

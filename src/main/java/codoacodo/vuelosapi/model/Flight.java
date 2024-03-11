@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -20,6 +21,7 @@ public class Flight {
     private String destino;
     private String fechaHoraSalida;
     private String fechaHoraLlegada;
+    @Getter
     private double precio;
     private String frecuencia;
 
@@ -31,6 +33,5 @@ public class Flight {
         this.precio = precio;
         this.frecuencia = frecuencia;
     }
-
 
 }

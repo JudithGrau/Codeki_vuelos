@@ -37,4 +37,9 @@ public class FlightController {
     public Flight updateFlight(@RequestBody Flight flight){
         return flightService.actualizarVuelo(flight);
     }
+    @GetMapping("/offers")
+    public List<Flight> getOffers(){
+        int offerPrice = 24000;
+        return flightService.getOffers(offerPrice);
+    }
 }
