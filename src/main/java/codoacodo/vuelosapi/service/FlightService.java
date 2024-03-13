@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
@@ -35,16 +36,22 @@ public class FlightService {
         return vuelosRepository.findById(flight.getId()).orElse(null);
     }
 
-    public List<Flight> getOffers(Integer offerPrice){
+//    public List<Flight> getOffers(Integer offerPrice){
+//
+//        List<Flight> flights = vuelosRepository.findAll();
+//        List<Flight> offerFlights = new ArrayList<>();
+//
+//        for(Flight flight : flights){
+//            if(flight.getPrecio() < offerPrice) {
+//                offerFlights.add(flight);
+//            }
+//        }
+//        return offerFlights;
+//    }
+public List<Flight> getOffers(int offerPrice) {
+    return vuelosRepository.findAll().stream()
+            .filter(flight -> flight.getPrecio() < offerPrice)
+            .collect(Collectors.toList());
+}
 
-        List<Flight> flights = vuelosRepository.findAll();
-        List<Flight> offerFlights = new ArrayList<>();
-
-        for(Flight flight : flights){
-            if(flight.getPrecio() < offerPrice) {
-                offerFlights.add(flight);
-            }
-        }
-        return offerFlights;
-    }
 }
