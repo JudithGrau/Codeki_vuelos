@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VuelosRepository extends JpaRepository<Flight, Long> {
-    List<Flight> findByPrecioLessThanEqual(double precioMaximo);
+public interface FlightRepository extends JpaRepository<Flight, Long> {
+    List<Flight> findByOrigin(String origin);
+    List<Flight> findByOriginAndDestiny(String origin, String destiny);
 }
