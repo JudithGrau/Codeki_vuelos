@@ -1,6 +1,8 @@
 package codoacodo.vuelosapi.controller;
 
+import codoacodo.vuelosapi.model.Dolar;
 import codoacodo.vuelosapi.model.Flight;
+import codoacodo.vuelosapi.model.FlightDto;
 import codoacodo.vuelosapi.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,10 @@ import java.util.Optional;
 @RequestMapping("/flights")
 public class FlightController {
     @Autowired
-    private FlightService flightService;
+    FlightService flightService;
 
     @GetMapping("")
-    public List<Flight> getAllFlights(){
+    public List<FlightDto> getAllFlights(){
         return flightService.findAll();
     }
 
@@ -44,11 +46,15 @@ public class FlightController {
     }
     @GetMapping("/offers")
     public List<Flight> getOffers(){
-        int offerPrice = 24000;
+        Integer offerPrice = 24000;
         return flightService.getOffers(offerPrice);
     }
     @GetMapping("/locations")
     public List<Flight> getFlightsByLocations(@RequestParam String origin, @RequestParam String destiny) {
         return flightService.getByOriginAndDestiny(origin, destiny);
+    }
+    @GetMapping("/allDolars")
+    public List<Dolar> getAllDolars(){
+        return flightService.getAllDolars();
     }
 }
