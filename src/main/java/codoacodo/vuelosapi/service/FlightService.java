@@ -2,6 +2,7 @@ package codoacodo.vuelosapi.service;
 
 import codoacodo.vuelosapi.model.Flight;
 import codoacodo.vuelosapi.repository.FlightRepository;
+import codoacodo.vuelosapi.utils.FlightUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class FlightService {
 
     @Autowired
     FlightRepository flightRepository;
+    FlightUtils flightUtils;
 
     public List<Flight> findAll(){
         return flightRepository.findAll();
@@ -40,16 +42,8 @@ public class FlightService {
         return flightRepository.findByOriginAndDestiny(origin, destiny);
     }
     public List<Flight> getOffers(Integer offerPrice){
-
         List<Flight> flights = flightRepository.findAll();
-        List<Flight> offerFlights = new ArrayList<>();
-
-        for(Flight flight : flights){
-            if(flight.getPrice() < offerPrice){
-                offerFlights.add(flight);
-            }
-        }
-        return offerFlights;
+        return flightUtils.detectOffers(flights, offerPrice);
     }
 
 }
